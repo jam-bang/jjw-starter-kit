@@ -63,3 +63,13 @@ Windows PowerShell 에서는 `.\gradlew.bat bootRun` 을 사용합니다.
 2. Mapper XML에 SQL 작성 (문자열 연결 금지, `#{}` 바인드 변수만)
 3. 업무 오류는 `BusinessException(ErrorCode.XXX)` 로 던지면 공통 응답으로 변환
 4. Service 테스트를 함께 작성
+
+## Claude Code 설정
+| 위치 | 내용 |
+|------|------|
+| `.claude/commands/` | `/add-api`, `/commit`, `/test`, `/sql-check` 커스텀 커맨드 |
+| `.claude/agents/` | code-reviewer, debugger, test-writer, security-checker, doc-writer 서브에이전트 |
+| `.claude/settings.json` + `.claude/hooks/` | 보호 파일 수정 차단, 위험 명령 차단, Mapper `${}` 경고 훅 (Node 필요) |
+| `.mcp.json` | context7(최신 라이브러리 문서), sequential-thinking(단계적 설계 검토), playwright(브라우저 E2E 확인) |
+
+처음 열면 Claude Code 가 프로젝트 MCP 서버 사용 승인을 묻습니다. `/mcp` 로 연결 상태를 확인하세요.

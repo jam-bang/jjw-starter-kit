@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: jjw-starter-kit
+  profiles:
+    default: local
+  datasource:
+    # 접속 정보는 환경 변수로 주입 (.env.example 참고, 실제 값은 커밋 금지)
+    url: ${DB_URL:jdbc:oracle:thin:@localhost:1521/FREEPDB1}
+    username: ${DB_USERNAME:app}
+    password: ${DB_PASSWORD:}
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: NULL
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.jjw.starter: DEBUG

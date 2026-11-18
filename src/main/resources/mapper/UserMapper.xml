@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jjw.starter.user.UserMapper">
+
+    <sql id="columns">
+        USER_ID, LOGIN_ID, USER_NAME, EMAIL, CREATED_AT
+    </sql>
+
+    <select id="findAll" resultType="com.jjw.starter.user.User">
+        SELECT <include refid="columns"/>
+          FROM TB_USER
+         ORDER BY USER_ID
+    </select>
+
+    <select id="findById" resultType="com.jjw.starter.user.User">
+        SELECT <include refid="columns"/>
+          FROM TB_USER
+         WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="existsByLoginId" resultType="boolean">
+        SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
+          FROM TB_USER
+         WHERE LOGIN_ID = #{loginId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId" keyColumn="USER_ID">
+        INSERT INTO TB_USER (LOGIN_ID, USER_NAME, EMAIL)
+        VALUES (#{loginId}, #{userName}, #{email})
+    </insert>
+
+    <update id="update">
+        UPDATE TB_USER
+           SET USER_NAME = #{userName},
+               EMAIL     = #{email}
+         WHERE USER_ID = #{userId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TB_USER WHERE USER_ID = #{userId}
+    </delete>
+</mapper>
